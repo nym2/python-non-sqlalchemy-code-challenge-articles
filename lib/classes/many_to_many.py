@@ -27,6 +27,12 @@ class Article:
     def title(self):
         return self._title
 
+    @title.setter
+    def title(self, new_title):
+        if not isinstance(new_title, str) or not (5 <= len(new_title) <= 50):
+            raise Exception("Title must be a string between 5 and 50 characters.")
+        self._title = new_title
+
     @property
     def author(self):
         return self._author
@@ -34,6 +40,15 @@ class Article:
     @property
     def magazine(self):
         return self._magazine
+
+    @magazine.setter
+    def magazine(self, new_magazine):
+        if not isinstance(new_magazine, Magazine):
+            raise Exception("Magazine must be an instance of the Magazine class.")
+        self._magazine = new_magazine
+
+
+
 
 
 class Author:
@@ -47,6 +62,13 @@ class Author:
     @property
     def name(self):
         return self._name
+
+    @name.setter
+    def name(self, value):
+        # Allow changing the author's name if it is a non-empty string
+        if not isinstance(value, str) or not value:
+            raise ValueError("Name must be a non-empty string.")
+        self._name = value
 
     def articles(self):
         return self._articles
@@ -64,6 +86,8 @@ class Author:
         if not self._articles:
             return None
         return list({article.magazine.category for article in self._articles})
+
+
 
 
 class Magazine:
