@@ -75,10 +75,30 @@ class Magazine:
         if not isinstance(category, str) or len(category) == 0:
             raise Exception("Category cannot be empty")
         
-        self.name = name
-        self.category = category
+        self._name = name
+        self._category = category
         self._articles = []
         Magazine.all.append(self)
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        if not isinstance(value, str) or len(value) < 2 or len(value) > 16:
+            return
+        self._name = value
+
+    @property
+    def category(self):
+        return self._category
+
+    @category.setter
+    def category(self, value):
+        if not isinstance(value, str) or len(value) == 0:
+            return
+        self._category = value
 
     def articles(self):
         return self._articles
